@@ -1,0 +1,764 @@
+{
+  "program": "Computer Science, BS",
+  "catalog_year": "2024-2025",
+  "total_credits": 122,
+  "source": "data/catalog_text.txt (Clemson University 2024-2025 Undergraduate Catalog)",
+  "note": "Course credits and the requirement structure come from the catalog text. Prerequisites reflect the stated course sequence and the catalog rule that a C or better is required in prerequisite courses; they are not a verbatim copy of each catalog course entry. General-education option lists are representative samples, not the complete approved lists. Verify against the live catalog before relying on this for real registration.",
+  "courses": {
+    "ENGL 1030": {
+      "title": "Composition and Rhetoric",
+      "credits": 3
+    },
+    "MATH 1060": {
+      "title": "Calculus of One Variable I",
+      "credits": 4
+    },
+    "MATH 1080": {
+      "title": "Calculus of One Variable II",
+      "credits": 4,
+      "prereqs": "MATH 1060"
+    },
+    "MATH 3110": {
+      "title": "Linear Algebra",
+      "credits": 3,
+      "prereqs": "MATH 1080"
+    },
+    "STAT 3090": {
+      "title": "Introductory Business Statistics",
+      "credits": 3,
+      "prereqs": "MATH 1060"
+    },
+    "CPSC 1010": {
+      "title": "Introduction to Computing I",
+      "credits": 4
+    },
+    "CPSC 1020": {
+      "title": "Introduction to Computing II",
+      "credits": 4,
+      "prereqs": "CPSC 1010 OR CPSC 1110"
+    },
+    "CPSC 1050": {
+      "title": "Introduction to Computing for Engineers",
+      "credits": 4
+    },
+    "CPSC 1060": {
+      "title": "Introduction to Programming in Java",
+      "credits": 4
+    },
+    "CPSC 1070": {
+      "title": "Programming Methodology",
+      "credits": 4,
+      "prereqs": "CPSC 1050 OR CPSC 1060"
+    },
+    "CPSC 1110": {
+      "title": "Elementary Computer Programming",
+      "credits": 4
+    },
+    "CPSC 2070": {
+      "title": "Discrete Structures for Computing",
+      "credits": 3,
+      "prereqs": "MATH 1060"
+    },
+    "CPSC 2120": {
+      "title": "Algorithms and Data Structures",
+      "credits": 4,
+      "prereqs": "CPSC 1020 OR CPSC 1070"
+    },
+    "CPSC 2150": {
+      "title": "Software Development Foundations",
+      "credits": 3,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 2310": {
+      "title": "Introduction to Computer Organization",
+      "credits": 4,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 2920": {
+      "title": "Computing, Ethics and Global Society",
+      "credits": 3,
+      "prereqs": "CPSC 1020 OR CPSC 1070"
+    },
+    "CPSC 3120": {
+      "title": "Introduction to the Analysis of Algorithms",
+      "credits": 3,
+      "prereqs": "CPSC 2120 AND CPSC 2070"
+    },
+    "CPSC 3500": {
+      "title": "Introduction to the Theory of Computation",
+      "credits": 3,
+      "prereqs": "CPSC 2120 AND CPSC 2070"
+    },
+    "CPSC 3220": {
+      "title": "Introduction to Operating Systems",
+      "credits": 3,
+      "prereqs": "CPSC 2310"
+    },
+    "CPSC 3600": {
+      "title": "Network Programming",
+      "credits": 3,
+      "prereqs": "CPSC 2310"
+    },
+    "CPSC 3520": {
+      "title": "Programming Systems",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 3720": {
+      "title": "Introduction to Software Engineering",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 3750": {
+      "title": "Human and Computer Interaction",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 4030": {
+      "title": "Data Visualization",
+      "credits": 3,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 4110": {
+      "title": "Virtual Reality Systems",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 4140": {
+      "title": "Digital Image Processing",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 4150": {
+      "title": "Mobile Device Programming",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 4160": {
+      "title": "2-D Game Engine Construction",
+      "credits": 3,
+      "prereqs": "CPSC 2150"
+    },
+    "CPSC 4180": {
+      "title": "Introduction to Computer Security",
+      "credits": 3,
+      "prereqs": "CPSC 2310"
+    },
+    "CPSC 4200": {
+      "title": "Computer Forensics",
+      "credits": 3,
+      "prereqs": "CPSC 2310"
+    },
+    "CPSC 4240": {
+      "title": "Network and Computer Security",
+      "credits": 3,
+      "prereqs": "CPSC 2310"
+    },
+    "CPSC 4300": {
+      "title": "Database Management Systems",
+      "credits": 3,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 4420": {
+      "title": "Artificial Intelligence",
+      "credits": 3,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 4430": {
+      "title": "Machine Learning",
+      "credits": 3,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 4440": {
+      "title": "Cloud Computing Architecture",
+      "credits": 3,
+      "prereqs": "CPSC 3220"
+    },
+    "CPSC 4620": {
+      "title": "Database Management Systems Design",
+      "credits": 3,
+      "prereqs": "CPSC 2120"
+    },
+    "CPSC 4720": {
+      "title": "Software Development Methodology",
+      "credits": 3,
+      "prereqs": "CPSC 3720"
+    },
+    "CPSC 4770": {
+      "title": "Distributed and Cluster Computing",
+      "credits": 3,
+      "prereqs": "CPSC 3600"
+    },
+    "CPSC 4910": {
+      "title": "Senior Computing Practicum",
+      "credits": 3,
+      "prereqs": "CPSC 3720"
+    },
+    "BIOL 1030": {
+      "title": "General Biology I",
+      "credits": 3
+    },
+    "BIOL 1050": {
+      "title": "General Biology I Laboratory",
+      "credits": 1
+    },
+    "BIOL 1040": {
+      "title": "General Biology II",
+      "credits": 3,
+      "prereqs": "BIOL 1030"
+    },
+    "BIOL 1060": {
+      "title": "General Biology II Laboratory",
+      "credits": 1,
+      "prereqs": "BIOL 1050"
+    },
+    "CH 1010": {
+      "title": "General Chemistry",
+      "credits": 4
+    },
+    "CH 1020": {
+      "title": "General Chemistry",
+      "credits": 4,
+      "prereqs": "CH 1010"
+    },
+    "PHYS 1220": {
+      "title": "Physics with Calculus I",
+      "credits": 3,
+      "prereqs": "MATH 1060"
+    },
+    "PHYS 1240": {
+      "title": "Physics Laboratory I",
+      "credits": 1
+    },
+    "PHYS 2210": {
+      "title": "Physics with Calculus II",
+      "credits": 3,
+      "prereqs": "PHYS 1220"
+    },
+    "PHYS 2230": {
+      "title": "Physics Laboratory II",
+      "credits": 1,
+      "prereqs": "PHYS 1240"
+    },
+    "GEOL 1010": {
+      "title": "Physical Geology",
+      "credits": 3
+    },
+    "GEOL 1030": {
+      "title": "Earth Science Laboratory",
+      "credits": 1
+    },
+    "ENSP 2000": {
+      "title": "Introduction to Environmental Science",
+      "credits": 3
+    },
+    "COMM 1500": {
+      "title": "Introduction to Human Communication",
+      "credits": 3
+    },
+    "COMM 2500": {
+      "title": "Public Speaking",
+      "credits": 3
+    },
+    "ENGL 3040": {
+      "title": "Business Writing",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ENGL 3120": {
+      "title": "Technical Writing",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ENGL 3140": {
+      "title": "Technical Editing",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ENGL 3150": {
+      "title": "Scientific Writing",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ENGL 3330": {
+      "title": "Advanced Composition",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "MUSC 2100": {
+      "title": "Music in the Western World",
+      "credits": 3
+    },
+    "THEA 2100": {
+      "title": "Introduction to Theatre",
+      "credits": 3
+    },
+    "ARTS 2100": {
+      "title": "Art Appreciation",
+      "credits": 3
+    },
+    "ENGL 2120": {
+      "title": "World Literature",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ENGL 2130": {
+      "title": "British Literature",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ENGL 2140": {
+      "title": "American Literature",
+      "credits": 3,
+      "prereqs": "ENGL 1030"
+    },
+    "ANTH 2010": {
+      "title": "Introduction to Anthropology",
+      "credits": 3
+    },
+    "GEOG 1010": {
+      "title": "Introduction to Geography",
+      "credits": 3
+    },
+    "POSC 1010": {
+      "title": "American National Government",
+      "credits": 3
+    },
+    "PSYC 2010": {
+      "title": "Introduction to Psychology",
+      "credits": 3
+    },
+    "SOC 2010": {
+      "title": "Introduction to Sociology",
+      "credits": 3
+    },
+    "HIST 1720": {
+      "title": "The Modern World",
+      "credits": 3
+    },
+    "POSC 1020": {
+      "title": "Introduction to International Relations",
+      "credits": 3
+    },
+    "PHIL 3250": {
+      "title": "Global Ethics",
+      "credits": 3
+    },
+    "ECON 2110": {
+      "title": "Principles of Microeconomics",
+      "credits": 3
+    },
+    "HIST 1010": {
+      "title": "History of Western Civilization",
+      "credits": 3
+    },
+    "MUSC 3140": {
+      "title": "World Music",
+      "credits": 3
+    }
+  },
+  "requirements": [
+    {
+      "id": "engl_1030",
+      "name": "Composition and Rhetoric",
+      "credits": 3,
+      "options": [
+        [
+          "ENGL 1030"
+        ]
+      ]
+    },
+    {
+      "id": "intro_computing",
+      "name": "Introduction to Computing Requirement",
+      "credits": 8,
+      "options": [
+        [
+          "CPSC 1010",
+          "CPSC 1020"
+        ],
+        [
+          "CPSC 1050",
+          "CPSC 1070"
+        ],
+        [
+          "CPSC 1060",
+          "CPSC 1070"
+        ],
+        [
+          "CPSC 1110",
+          "CPSC 1020"
+        ]
+      ]
+    },
+    {
+      "id": "calculus",
+      "name": "Calculus Sequence",
+      "credits": 8,
+      "options": [
+        [
+          "MATH 1060"
+        ],
+        [
+          "MATH 1080"
+        ]
+      ]
+    },
+    {
+      "id": "natural_science",
+      "name": "Natural Science Sequence (with labs)",
+      "credits": 8,
+      "options": [
+        [
+          "BIOL 1030",
+          "BIOL 1050",
+          "BIOL 1040",
+          "BIOL 1060"
+        ],
+        [
+          "CH 1010",
+          "CH 1020"
+        ],
+        [
+          "PHYS 1220",
+          "PHYS 1240",
+          "PHYS 2210",
+          "PHYS 2230"
+        ]
+      ]
+    },
+    {
+      "id": "dept_natural_science",
+      "name": "Departmental Natural Science",
+      "credits": 6,
+      "options": [
+        [
+          "ENSP 2000"
+        ],
+        [
+          "GEOL 1010"
+        ],
+        [
+          "GEOL 1030"
+        ]
+      ]
+    },
+    {
+      "id": "cs_core",
+      "name": "Core Computing",
+      "credits": 17,
+      "options": [
+        [
+          "CPSC 2070"
+        ],
+        [
+          "CPSC 2120"
+        ],
+        [
+          "CPSC 2150"
+        ],
+        [
+          "CPSC 2310"
+        ],
+        [
+          "CPSC 2920"
+        ]
+      ]
+    },
+    {
+      "id": "oral_comm",
+      "name": "Oral Communication Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "COMM 1500"
+        ],
+        [
+          "COMM 2500"
+        ]
+      ]
+    },
+    {
+      "id": "statistics",
+      "name": "Statistics Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "STAT 3090"
+        ]
+      ]
+    },
+    {
+      "id": "linear_algebra",
+      "name": "Linear Algebra",
+      "credits": 3,
+      "options": [
+        [
+          "MATH 3110"
+        ]
+      ]
+    },
+    {
+      "id": "computer_systems",
+      "name": "Computer Systems Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 3220"
+        ],
+        [
+          "CPSC 3600"
+        ]
+      ]
+    },
+    {
+      "id": "theory",
+      "name": "Theory Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 3120"
+        ],
+        [
+          "CPSC 3500"
+        ]
+      ]
+    },
+    {
+      "id": "software_eng",
+      "name": "Software Engineering",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 3720"
+        ]
+      ]
+    },
+    {
+      "id": "programming_systems",
+      "name": "Programming Systems",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 3520"
+        ]
+      ]
+    },
+    {
+      "id": "cs_path",
+      "name": "Computer Science PATH Requirement",
+      "credits": 6,
+      "note": "Select two courses from one area: Advanced Systems, Data Science and AI, or Interactive Systems.",
+      "options": [
+        [
+          "CPSC 3220",
+          "CPSC 3600"
+        ],
+        [
+          "CPSC 4440",
+          "CPSC 4720"
+        ],
+        [
+          "CPSC 4030",
+          "CPSC 4300"
+        ],
+        [
+          "CPSC 4420",
+          "CPSC 4430"
+        ],
+        [
+          "CPSC 3750",
+          "CPSC 4110"
+        ],
+        [
+          "CPSC 4140",
+          "CPSC 4150"
+        ]
+      ]
+    },
+    {
+      "id": "computer_security",
+      "name": "Computer Security Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 4180"
+        ],
+        [
+          "CPSC 4200"
+        ],
+        [
+          "CPSC 4240"
+        ]
+      ]
+    },
+    {
+      "id": "info_management",
+      "name": "Information Management Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 4300"
+        ],
+        [
+          "CPSC 4620"
+        ]
+      ]
+    },
+    {
+      "id": "cs_technical",
+      "name": "Computer Science Technical Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 4030"
+        ],
+        [
+          "CPSC 4420"
+        ],
+        [
+          "CPSC 4430"
+        ],
+        [
+          "CPSC 4770"
+        ],
+        [
+          "CPSC 4720"
+        ]
+      ]
+    },
+    {
+      "id": "practicum",
+      "name": "Senior Computing Practicum",
+      "credits": 3,
+      "options": [
+        [
+          "CPSC 4910"
+        ]
+      ]
+    },
+    {
+      "id": "writing",
+      "name": "Writing Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "ENGL 3040"
+        ],
+        [
+          "ENGL 3120"
+        ],
+        [
+          "ENGL 3140"
+        ],
+        [
+          "ENGL 3150"
+        ],
+        [
+          "ENGL 3330"
+        ]
+      ]
+    },
+    {
+      "id": "arts_hum_nonlit",
+      "name": "Arts and Humanities (Non-Literature)",
+      "credits": 3,
+      "options": [
+        [
+          "MUSC 2100"
+        ],
+        [
+          "THEA 2100"
+        ],
+        [
+          "ARTS 2100"
+        ],
+        [
+          "HIST 1010"
+        ],
+        [
+          "MUSC 3140"
+        ]
+      ]
+    },
+    {
+      "id": "arts_hum_lit",
+      "name": "Arts and Humanities (Literature)",
+      "credits": 3,
+      "options": [
+        [
+          "ENGL 2120"
+        ],
+        [
+          "ENGL 2130"
+        ],
+        [
+          "ENGL 2140"
+        ]
+      ]
+    },
+    {
+      "id": "social_science",
+      "name": "Social Science Requirement",
+      "credits": 6,
+      "options": [
+        [
+          "ANTH 2010"
+        ],
+        [
+          "GEOG 1010"
+        ],
+        [
+          "POSC 1010"
+        ],
+        [
+          "PSYC 2010"
+        ],
+        [
+          "SOC 2010"
+        ],
+        [
+          "ECON 2110"
+        ]
+      ]
+    },
+    {
+      "id": "global_challenges",
+      "name": "Global Challenges Requirement",
+      "credits": 6,
+      "options": [
+        [
+          "HIST 1720"
+        ],
+        [
+          "POSC 1020"
+        ],
+        [
+          "PHIL 3250"
+        ],
+        [
+          "MUSC 3140"
+        ]
+      ]
+    },
+    {
+      "id": "breadth",
+      "name": "Breadth Requirement",
+      "credits": 3,
+      "options": [
+        [
+          "PHIL 3250"
+        ],
+        [
+          "ECON 2110"
+        ],
+        [
+          "HIST 1010"
+        ],
+        [
+          "PSYC 2010"
+        ]
+      ]
+    }
+  ]
+}
