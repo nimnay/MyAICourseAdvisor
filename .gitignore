@@ -70,3 +70,6 @@ data/catalog_text.txt
 
 # OS
 Thumbs.db
+
+# Generated term offerings (python -m src.offerings)
+data/sections.json
