@@ -1,35 +1,135 @@
 {% extends "base.html" %}
-
-{% block title %}Home - My Flask App{% endblock %}
+{% block title %}AI Advisor - Schedule Planner{% endblock %}
 
 {% block content %}
-    <h1 class= "title">Welcome to My AI Advisor</h1>
-    <p>This is a platform that recommends that best semester schedule based off a students course load.</p>
+<h1>AI Advisor</h1>
+<p class="lede">Plan next semester for the {{ program }}. Prerequisites and time
+   conflicts are checked, not guessed.</p>
 
 <form action="/" method="POST">
-    <label for="user_name">Enter Your Name:</label>
-    <input type="text" id="user_name" name="user_name" required>
-    <br><br>
-
-    <label for="user_classes">Enter Your Current or Previous Classes:</label>
-    <input type="text" id="user_classes" name="user_classes" required>
-    <br><br>
-
-    <button type="submit">Submit</button>
+    <div>
+        <label for="completed">Courses you have completed
+            <span class="hint">comma separated, e.g. CPSC 1010, MATH 1060</span></label>
+        <input type="text" id="completed" name="completed" required
+               value="{{ completed_text|default('', true) }}">
+    </div>
+    <div>
+        <label for="current">Courses you are enrolled in now
+            <span class="hint">optional, counts toward prerequisites</span></label>
+        <input type="text" id="current" name="current" value="{{ current_text|default('', true) }}">
+    </div>
+    <div>
+        <label for="constraints">Time constraints
+            <span class="hint">optional, e.g. no classes before 10am, keep Fridays free</span></label>
+        <input type="text" id="constraints" name="constraints"
+               value="{{ constraints_text|default('', true) }}">
+    </div>
+    <label class="check">
+        <input type="checkbox" name="use_ai" value="1" {% if use_ai %}checked{% endif %}>
+        Use Claude to read my constraints and comment on the plan
+    </label>
+    <button type="submit">Build my schedule</button>
 </form>
 
-{% if submitted_name and submitted_courses %}
-    <div class="output-box">
-        <h3>AI Advisor</h3>
-        <p><strong>Student Name:</strong> <span class="submitted-text">{{ submitted_name }}</span></p>
-        <p><strong>Current/Previous Classes:</strong> <span class="submitted-text">{{ submitted_courses }}</span></p>
+{% if submitted %}
+    {% if unknown %}
+        <p class="warn">Not in the catalog, so ignored:
+           {% for code in unknown %}<code>{{ code }}</code>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    {% endif %}
 
-        {% if recommendation %}
-            <p><strong>Recommendation:</strong>
-            <p> {{  recommendation }}</p><br>
-        {% else %}
-            <p>AI Advisor could not find a solution.</p>
-        {% endif %}
+    <h2>Next semester</h2>
+    <div class="summary">
+        <span><span class="credits">{{ credits }}</span> credits</span>
+        <span>{{ picks|length }} course{{ '' if picks|length == 1 else 's' }}</span>
+        {% if constraints %}<span class="hint">constraints applied: {{ constraints }}</span>{% endif %}
     </div>
+
+    {% if picks %}
+    <table>
+        <thead><tr><th>Course</th><th>Title</th><th>Credits</th><th>Meets</th></tr></thead>
+        <tbody>
+        {% for code, section in picks %}
+            <tr>
+                <td><code>{{ code }}</code></td>
+                <td>{{ catalog.title(code) }}</td>
+                <td>{{ catalog.credits(code) }}</td>
+                <td>{{ section.days }} {{ section.time_slot }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="cal-empty">Nothing could be scheduled. Loosen the time constraints, or
+           check the completed course list.</p>
+    {% endif %}
+
+    {% if credits < target and reasons %}
+        <p class="warn">{{ target - credits }} credits short of the {{ target }} credit target:
+           {{ reasons|join('; ') }}.</p>
+    {% endif %}
+
+    {% if note %}<div class="note">{{ note }}</div>{% endif %}
+
+    {% if blocks %}
+    <h2>Your week</h2>
+    <div class="calendar">
+        <div class="cal-head"></div>
+        {% for letter, label in days %}<div class="cal-head">{{ label }}</div>{% endfor %}
+
+        <div class="cal-col" style="grid-template-rows: repeat({{ total_rows }}, 8px)">
+            {% for label, row in hours %}
+                <div class="cal-hour" style="grid-row: {{ row }} / span 4">{{ label }}</div>
+            {% endfor %}
+        </div>
+
+        {% for letter, label in days %}
+        <div class="cal-col" style="grid-template-rows: repeat({{ total_rows }}, 8px)">
+            {% for block in blocks if block.day == letter %}
+                <div class="cal-block" style="grid-row: {{ block.row }} / span {{ block.span }}"
+                     title="{{ block.code }} {{ block.title }} - {{ block.time }}">
+                    <strong>{{ block.code }}</strong>{{ block.time }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h2>Degree progress</h2>
+    <table>
+        <thead><tr><th>Requirement</th><th>Earned</th><th>Needed</th><th></th></tr></thead>
+        <tbody>
+        {% for row in progress_rows %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.earned }}</td>
+                <td>{{ row.required }}</td>
+                <td>
+                    {% if row.remaining %}
+                        <progress value="{{ row.earned }}" max="{{ row.required }}"></progress>
+                    {% else %}
+                        <span class="done">complete</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if blocked %}
+    <h2>Not yet eligible ({{ blocked|length }})</h2>
+    <table>
+        <thead><tr><th>Course</th><th>Requirement</th><th>Still needs</th></tr></thead>
+        <tbody>
+        {% for row in blocked %}
+            <tr>
+                <td><code>{{ row.course }}</code></td>
+                <td>{{ row.requirement }}</td>
+                <td>{{ row.missing|join(', ') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 {% endif %}
 {% endblock %}
