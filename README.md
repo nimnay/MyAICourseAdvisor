@@ -1,212 +1,143 @@
-# AI Advisor - Student Schedule Planner 🎓
+# AI Advisor — Student Schedule Planner
 
-### 🏆 CUHackit 2025 Winner - Best Use of AWS
+### CUHackit 2025 Winner — Best Use of AWS
 
-An intelligent course scheduling assistant that helps students plan optimal academic schedules by analyzing their academic history, course prerequisites, and scheduling constraints.
+Plans a Clemson Computer Science student's next semester from their transcript:
+checks prerequisites, avoids time conflicts, and aims for a 16–18 credit load.
 
-## 📖 About
+## How it works
 
-**AI Advisor** is a smart academic planning tool designed to eliminate the stress of course registration. Built for CUHackit 2025, this system leverages advanced AI to suggest personalized course schedules tailored to each student's unique academic journey.
+The scheduling decisions are made in plain Python, not by a language model,
+because prerequisite and conflict correctness is checkable — so it gets checked
+and tested. Claude is used for the two jobs it is actually better at:
 
-### How It Works
+| Step | Who does it |
+|---|---|
+| Read free-text constraints ("no classes before 10am") | Claude, with a regex fallback |
+| Decide which requirements are outstanding | `src/scheduler.py` |
+| Filter to courses whose prerequisites you meet | `src/prereqs.py` |
+| Pick conflict-free sections near the credit target | `src/scheduler.py` |
+| Explain why the term fits your degree path | Claude, omitted if unavailable |
 
-The AI Advisor analyzes multiple factors to create your ideal schedule:
+Every schedule is asserted conflict-free before it is returned, and the catalog
+is validated at load: a requirement or prerequisite naming a course that does
+not exist fails immediately rather than silently dropping courses.
 
-- **📚 Previously Taken Classes** - Tracks your completed courses to understand your academic progress
-- **✅ Academic Requirements** - Validates prerequisites and co-requisites to ensure you're eligible for each course
-- **🤖 AI-Powered Intelligence** - Uses Claude 3 Sonnet (via AWS Bedrock) to process complex scheduling logic
-- **📊 Knowledge Base Integration** - Draws from a comprehensive database of course paths, degree requirements, and class timings
-- **⏰ Conflict Prevention** - Automatically ensures no time slot conflicts in your recommended schedule
-- **🎯 Credit Optimization** - Aims for 16-18 credit hours while respecting your constraints
+**Claude is entirely optional.** With no API key the planner runs in full.
 
-### Technology Stack
-
-- **AI Model**: Claude 3 Sonnet via AWS Bedrock
-- **Knowledge Base**: Custom-built course catalog with prerequisites and scheduling data
-- **Language**: Python 3.8+
-- **Cloud Platform**: AWS (Bedrock Agent Runtime)
-
-## 🌟 Features
-
-- **Personalized Recommendations**: Get schedule suggestions based on your academic history
-- **Prerequisite Validation**: Ensures you only see courses you're eligible to take
-- **Time Conflict Prevention**: Automatically avoids scheduling overlapping classes
-- **Credit Hour Optimization**: Aims for 16-18 credits while respecting constraints
-- **AWS Bedrock Integration**: Leverages Claude 3 Sonnet for intelligent recommendations
-
-## 📁 Project Structure
-
-```
-AIAdvisor/
-├── src/                      # Source code
-│   ├── config.py            # Configuration constants
-│   ├── utils.py             # AWS Bedrock utilities
-│   ├── main.py              # Main application entry point
-│   ├── preprocess.py        # Course catalog preprocessing
-│   └── class_timings.py     # Schedule generation with time slots
-├── data/                     # Data files (generated)
-│   ├── course_structure.json
-│   └── class_schedule.json
-├── docs/                     # Documentation
-├── requirements.txt          # Python dependencies
-├── .gitignore
-└── README.md
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Python 3.8 or higher
-- AWS Account with Bedrock access
-- AWS credentials configured locally
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/nimnay/AIAdvisor.git
-   cd AIAdvisor
-   ```
-
-2. **Create a virtual environment**
-   ```powershell
-   python -m venv venv
-   .\venv\Scripts\Activate.ps1
-   ```
-
-3. **Install dependencies**
-   ```powershell
-   pip install -r requirements.txt
-   ```
-
-4. **Configure AWS credentials**
-   Ensure your AWS credentials are configured with Bedrock access:
-   ```powershell
-   aws configure
-   ```
-
-### Usage
-
-#### 1. Generate Course Data (First Time Setup)
-
-Generate the course structure and class schedules:
+## Setup
 
 ```powershell
-# Generate course structure
-python -m src.preprocess
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 
-# Generate class schedules with time slots
-python -m src.class_timings
+# Build this term's section offerings (writes data/sections.json)
+python -m src.offerings
 ```
 
-#### 2. Run the Schedule Planner
+For the optional Claude features, set a key:
+
+```powershell
+$env:ANTHROPIC_API_KEY = "sk-ant-..."
+```
+
+## Usage
+
+Command line, interactive:
 
 ```powershell
 python -m src.main
 ```
 
-Follow the interactive prompts to:
-- Enter your name
-- List completed courses (e.g., `CPSC 1010, ENGL 1030`)
-- List current courses
-- Specify time constraints (optional)
+Or with flags, which is also how you script it:
 
-## 📋 Example
-
-```
-==============================================================
-AI Advisor - Student Schedule Planner
-==============================================================
-
-Enter your name: 
-John Doe
-
-Enter courses you have **already completed**, separated by commas:
-CPSC 1010, ENGL 1030, MATH 1060
-
-Enter courses you are **currently enrolled in**:
-CPSC 1020, MATH 1080
-
-Enter any time slot constraints:
-No classes before 10am
-
-🔄 Generating schedule recommendations...
-
-==============================================================
-Schedule Recommendations for John Doe
-==============================================================
-
-Recommended Schedule:
-
-1. CPSC 2070 - Discrete Structures for Computing | MWF 10:10 AM - 11:00 AM
-2. COMM 1500 - Introduction to Human Communication | TTh 12:00 PM - 1:15 PM
-3. BIOL 1030 - General Biology I | MWF 1:25 PM - 2:15 PM
-...
-```
-
-## 🔧 Configuration
-
-Edit `src/config.py` to customize:
-
-- AWS region and model ARNs
-- Credit hour requirements
-- Time slot options
-- Generation parameters
-
-## 📚 Data Files
-
-### Course Structure (`data/course_structure.json`)
-Contains the Computer Science BS degree requirements including:
-- General education requirements
-- Major-specific courses
-- Prerequisites
-- Credit hours
-
-### Class Schedule (`data/class_schedule.json`)
-Generated schedule with:
-- Course sections
-- Time slots (MWF/TTh)
-- Section IDs
-
-## 🛠️ Development
-
-### Code Style
-
-The project uses:
-- **Black** for code formatting
-- **Pylint** for linting
-- **MyPy** for type checking
-
-Format code:
 ```powershell
-black src/
+python -m src.main --completed "CPSC 1010, CPSC 1020, MATH 1060, MATH 1080, ENGL 1030" `
+                  --constraints "no classes before 10am, keep Fridays free"
 ```
 
-### Project Organization
+```
+================================================================
+Recommended schedule -- 16 credits
+================================================================
 
-- `src/config.py` - All configuration constants
-- `src/utils.py` - AWS Bedrock API integration
-- `src/main.py` - Interactive CLI application
-- `src/preprocess.py` - Course data preprocessing
-- `src/class_timings.py` - Schedule generation
+1. BIOL 1040   General Biology II                            TTh 9:30 AM - 10:45 AM
+2. COMM 1500   Introduction to Human Communication           MWF 12:20 PM - 1:10 PM
+3. CPSC 2120   Algorithms and Data Structures                MWF 4:40 PM - 5:30 PM
+4. ENSP 2000   Introduction to Environmental Science         TTh 2:00 PM - 3:15 PM
+5. STAT 3090   Introductory Business Statistics              MWF 8:00 AM - 8:50 AM
 
-## 📝 License
+Still outstanding (20 requirements):
+   Core Computing                                   17 cr
+   Oral Communication Requirement                    3 cr
+   ...
 
-This project is for educational purposes.
+Not yet eligible (21 courses), for example:
+   CPSC 2150   needs CPSC 2120
+   CPSC 2310   needs CPSC 2120
+```
 
-## 🤝 Contributing
+Web interface — weekly calendar, degree progress bars, and what you are not yet
+eligible for:
 
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+```powershell
+python -m src.web     # http://127.0.0.1:5000
+```
 
-## 📧 Contact
+Useful flags: `--current` for in-progress courses (they count toward
+prerequisites), `--credits N` to change the target, `--no-ai` to skip Claude.
 
-For questions or issues, please open a GitHub issue.
+## Layout
 
----
+```
+src/
+  prereqs.py     prerequisite expressions: "CPSC 2120 AND (MATH 1060 OR MATH 1070)"
+  catalog.py     load catalog and sections, parse times, detect conflicts
+  scheduler.py   requirement progress, eligibility, conflict-free selection
+  offerings.py   generate a term of sections (python -m src.offerings)
+  advisor.py     optional Claude layer
+  main.py        command line
+  web.py         Flask app
+data/catalog/
+  cs_bs.json     degree requirements and course catalog
+tests/
+  test_engine.py 12 checks, runs with or without pytest
+```
 
-**Note**: This application requires active AWS Bedrock credentials and may incur AWS costs based on usage.
+## Tests
+
+```powershell
+python tests/test_engine.py     # or: pytest
+```
+
+## Data
+
+[data/catalog/cs_bs.json](data/catalog/cs_bs.json) holds the degree
+requirements, derived from the 2024–2025 catalog text in
+[data/catalog_text.txt](data/catalog_text.txt). Prerequisites follow the
+catalog's stated course sequence rather than being copied verbatim from each
+course entry, and the general-education option lists are representative samples.
+**Verify against the live catalog before relying on this for real registration.**
+
+Clemson does not publish machine-readable section times, so
+`python -m src.offerings` synthesises them from a fixed seed — the same catalog
+always produces the same term. Swap that module for a registrar feed when one is
+available; nothing downstream knows the times are invented.
+
+The other files in `data/` (`course_structure*.json`, `class_schedule.json`) are
+from the original hackathon build and are no longer read by any code.
+
+## Known limitations
+
+- A course counts toward every requirement that lists it. The real catalog
+  forbids double-counting across requirements, so remaining credits can read low
+  for a student who leaned on shared courses.
+- Section selection is greedy with no backtracking, so it can miss a fuller
+  schedule when an early pick blocks a later course that had one workable
+  section. Both limits are marked in the source.
+- Only the Computer Science BS is modelled.
+
+## Team
+
+Nimra Nayyar, Nadia Alexander, Angie Diaz, Hannah Leach — CUHackit 2025.

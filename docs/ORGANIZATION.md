@@ -1,3 +1,8 @@
+> **Historical.** This describes the layout as of the original hackathon cleanup.
+> The engine was rebuilt afterwards and several files named below no longer exist
+> (`config.py`, `utils.py`, `class_timings.py`, `preprocess.py`). See
+> [../README.md](../README.md) for the current layout.
+
 # Project Organization Summary
 
 ## ✅ What Was Done
