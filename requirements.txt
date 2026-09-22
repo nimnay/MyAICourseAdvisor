@@ -1,14 +1,12 @@
 # AI Advisor - Student Schedule Planner
-# Python Dependencies
 
-# Core AWS SDK
-boto3>=1.34.0
-botocore>=1.34.0
+# Web interface
+flask>=3.0.0
 
-# PDF Processing (optional, for catalog preprocessing)
-pdfplumber>=0.11.0
+# Optional: the advisor reads free-text constraints and comments on a plan.
+# Without it (or without credentials) the planner still works in full, using
+# the regex constraint parser and no commentary.
+anthropic>=0.40.0
 
-# Development Dependencies
-black>=24.0.0
-pylint>=3.0.0
-mypy>=1.8.0
+# Tests also run standalone: python tests/test_engine.py
+pytest>=8.0.0
