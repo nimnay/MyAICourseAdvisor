@@ -54,7 +54,7 @@ Or with flags, which is also how you script it:
 
 ```powershell
 python -m src.main --completed "CPSC 1010, CPSC 1020, MATH 1060, MATH 1080, ENGL 1030" `
-                  --constraints "no classes before 10am, keep Fridays free"
+                  --constraints "no classes before 10am"
 ```
 
 ```
@@ -62,15 +62,16 @@ python -m src.main --completed "CPSC 1010, CPSC 1020, MATH 1060, MATH 1080, ENGL
 Recommended schedule -- 16 credits
 ================================================================
 
-1. BIOL 1040   General Biology II                            TTh 9:30 AM - 10:45 AM
+1. BIOL 1030   General Biology I                             TTh 2:00 PM - 3:15 PM
 2. COMM 1500   Introduction to Human Communication           MWF 12:20 PM - 1:10 PM
 3. CPSC 2120   Algorithms and Data Structures                MWF 4:40 PM - 5:30 PM
-4. ENSP 2000   Introduction to Environmental Science         TTh 2:00 PM - 3:15 PM
-5. STAT 3090   Introductory Business Statistics              MWF 8:00 AM - 8:50 AM
+4. ENSP 2000   Introduction to Environmental Science         MWF 3:35 PM - 4:25 PM
+5. STAT 3090   Introductory Business Statistics              TTh 3:30 PM - 4:45 PM
 
-Still outstanding (20 requirements):
+Still outstanding (21 requirements):
+   Natural Science Sequence (with labs)              8 cr
+   Departmental Natural Science                      6 cr
    Core Computing                                   17 cr
-   Oral Communication Requirement                    3 cr
    ...
 
 Not yet eligible (21 courses), for example:
@@ -84,6 +85,10 @@ eligible for:
 ```powershell
 python -m src.web     # http://127.0.0.1:5000
 ```
+
+A constraint that rules out a weekday is stronger than it looks: "keep Fridays
+free" removes every MWF section, so the planner reports how many credits it fell
+short and why.
 
 Useful flags: `--current` for in-progress courses (they count toward
 prerequisites), `--credits N` to change the target, `--no-ai` to skip Claude.
