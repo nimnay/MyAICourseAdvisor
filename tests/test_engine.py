@@ -80,6 +80,24 @@ def test_option_pool_sequence_vs_pool():
     assert set(scheduler.option_pool(catalog, core, set())) >= {"CPSC 2070", "CPSC 2120"}
 
 
+def test_no_course_counts_toward_two_requirements():
+    """The catalog forbids one course satisfying several requirements."""
+    catalog = load_catalog()
+    # Each of these is listed under two requirements in the catalog.
+    taken = ["ECON 2110", "PSYC 2010", "PHIL 3250", "MUSC 3140"]
+
+    claimed = scheduler.assign(catalog, taken)
+    assert sorted(claimed) == sorted(taken), "each usable course should be claimed once"
+
+    rows = scheduler.progress(catalog, taken)
+    assert sum(row["earned"] for row in rows) == sum(catalog.credits(c) for c in taken)
+
+    # A claimed course must actually belong to the requirement claiming it.
+    by_id = {r["id"]: r for r in catalog.requirements}
+    for code, requirement_id in claimed.items():
+        assert code in scheduler.option_pool(catalog, by_id[requirement_id], set(taken))
+
+
 def test_built_schedule_is_valid():
     catalog, sections = load_catalog(), load_sections()
     taken = ["CPSC 1010", "CPSC 1020", "MATH 1060", "MATH 1080", "ENGL 1030"]

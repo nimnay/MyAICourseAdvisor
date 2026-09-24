@@ -50,22 +50,45 @@ def option_pool(catalog, requirement, have):
     return max(groups, key=lambda group: sum(catalog.credits(c) for c in group if c in have))
 
 
-def progress(catalog, taken):
-    """Per-requirement credit progress toward the degree.
+def assign(catalog, taken):
+    """Assign each completed course to at most one requirement: ``{course: req_id}``.
 
-    ponytail: counts a course toward every requirement that lists it. The real
-    catalog forbids double-counting across several requirements, so remaining
-    credits can read low for a student who leaned on shared courses. Track
-    assignments per course if that matters.
+    The catalog forbids using one course to satisfy several requirements, so
+    progress has to claim courses rather than count them repeatedly. Requirements
+    with the fewest usable courses claim first, otherwise a broad requirement
+    takes the only course a narrow one could have used.
+
+    ponytail: greedy, not a maximum matching, so a contrived overlap can still
+    understate progress by one course. Swap in bipartite matching if a real
+    transcript shows it.
     """
     have = {prereqs.normalize(code) for code in taken}
+    usable = {
+        requirement["id"]: [c for c in option_pool(catalog, requirement, have) if c in have]
+        for requirement in catalog.requirements
+    }
+
+    claimed = {}
+    for requirement in sorted(catalog.requirements, key=lambda r: len(usable[r["id"]])):
+        earned = 0
+        for code in usable[requirement["id"]]:
+            if earned >= requirement["credits"]:
+                break
+            if code not in claimed:
+                claimed[code] = requirement["id"]
+                earned += catalog.credits(code)
+    return claimed
+
+
+def progress(catalog, taken):
+    """Per-requirement credit progress toward the degree, no course counted twice."""
+    earned_by = {}
+    for code, requirement_id in assign(catalog, taken).items():
+        earned_by[requirement_id] = earned_by.get(requirement_id, 0) + catalog.credits(code)
+
     rows = []
     for requirement in catalog.requirements:
-        earned = sum(
-            catalog.credits(code)
-            for code in option_pool(catalog, requirement, have)
-            if code in have
-        )
+        earned = earned_by.get(requirement["id"], 0)
         required = requirement["credits"]
         rows.append(
             {

@@ -135,9 +135,8 @@ from the original hackathon build and are no longer read by any code.
 
 ## Known limitations
 
-- A course counts toward every requirement that lists it. The real catalog
-  forbids double-counting across requirements, so remaining credits can read low
-  for a student who leaned on shared courses.
+- Requirement assignment is greedy rather than a maximum matching, so a
+  contrived overlap between requirements can understate progress by one course.
 - Section selection is greedy with no backtracking, so it can miss a fuller
   schedule when an early pick blocks a later course that had one workable
   section. Both limits are marked in the source.
