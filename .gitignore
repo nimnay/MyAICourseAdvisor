@@ -73,3 +73,6 @@ Thumbs.db
 
 # Generated term offerings (python -m src.offerings)
 data/sections.json
+
+# Student submissions (personal data, never committed)
+frontend/submitted_data.json
