@@ -106,6 +106,9 @@ def _parse_with_claude(text, api):
     )
 
     parsed = response.parsed_output
+    if parsed is None:  # no parseable text block, e.g. the model stopped early
+        raise ValueError(f"no structured output in response (stop_reason={response.stop_reason})")
+
     found = {}
     if parsed.earliest_start:
         found["earliest"] = _clock_to_minutes(parsed.earliest_start)

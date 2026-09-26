@@ -6,7 +6,9 @@ flask>=3.0.0
 # Optional: the advisor reads free-text constraints and comments on a plan.
 # Without it (or without credentials) the planner still works in full, using
 # the regex constraint parser and no commentary.
-anthropic>=0.40.0
+# Floor is the version the call shape was verified against: messages.parse
+# with output_format/output_config. Older releases may lack them.
+anthropic>=0.122.0
 
 # Tests also run standalone: python tests/test_engine.py
 pytest>=8.0.0
